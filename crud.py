@@ -18,14 +18,22 @@ def read_data(table_name):
             df.columns = result.keys()
         return df
 
+# def update_data(table_name, row, data):
+# 	with engine.connect().execution_options(autocommit=True) as con:
+# 		id_name = data.columns[0]
+# 		query = 'update '+ table_name + ' set ' 
+# 		for i in range(1, len(data.columns)):
+# 			query += str(data.columns[i]) + ' =\'' + str(data.iloc[row, i]) + '\','
+# 		query = query[:-1] + ' where ' + str(id_name) + ' = ' + '\''+str(data.iloc[row,0]+'\'')
+# 		con.execute(query)
+
 def update_data(table_name, row, data):
-	with engine.connect().execution_options(autocommit=True) as con:
-		id_name = data.columns[0]
-		query = 'update '+ table_name + ' set ' 
-		for i in range(1, len(data.columns)):
-			query += str(data.columns[i]) + ' =\'' + str(data.iloc[row, i]) + '\','
-		query = query[:-1] + ' where ' + str(id_name) + ' = ' + '\''+str(data.iloc[row,0]+'\'')
-		con.execute(query)
+    with engine.connect().execution_options(autocommit=True) as con:
+        id_name = data.columns[0]
+        query = f'UPDATE {table_name} SET '
+        query += ', '.join([f"{col} = '{data.at[row, col]}'" for col in data.columns[1:]])
+        query += f" WHERE {id_name} = '{data.at[row, id_name]}'"
+        con.execute(query)
 
 def delete_data(table_name, row, data):
 	with engine.connect().execution_options(autocommit=True) as con:
