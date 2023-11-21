@@ -1,8 +1,6 @@
-from sqlalchemy.ext.automap import automap_base
-from sqlalchemy.orm import Session
-from sqlalchemy import create_engine, MetaData
-from sqlalchemy import func, asc
-from collections import defaultdict
+import sqlalchemy as db
+from sqlalchemy import text
+import pandas as pd
 
 connection_string = 'postgresql://postgres.orkyzebkktkifsjmlzpi:Nurlybekov123@aws-0-ap-southeast-1.pooler.supabase.com:6543/postgres'
 engine = create_engine(connection_string)
