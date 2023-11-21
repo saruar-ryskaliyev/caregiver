@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd 
-from db_fxns import * 
+from crud import * 
 import datetime
 import streamlit.components.v1 as stc
 
