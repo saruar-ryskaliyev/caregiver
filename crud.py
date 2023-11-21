@@ -2,7 +2,8 @@ import sqlalchemy as db
 from sqlalchemy import text
 import pandas as pd
 
-engine = db.create_engine('postgresql://postgres:Nurlybekov123@localhost:5432/postgres')
+connection_string = 'postgres://postgres.orkyzebkktkifsjmlzpi:Nurlybekov123@aws-0-ap-southeast-1.pooler.supabase.com:6543/postgres'
+engine = create_engine(connection_string)
 
 def add_data(table_name, arr):
 	with engine.connect().execution_options(autocommit=True) as con:
