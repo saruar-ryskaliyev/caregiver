@@ -12,9 +12,9 @@ def main():
     if choice == "Create":
         table_name = "USERS"
         st.subheader("Add Item")
-        table_name = st.selectbox("Table Name",["USERS","CAREGIVER","member",
+        table_name = st.selectbox("Table Name",["users","caregiver","member",
                                                 "address","job","job_application","appointment"])
-        if table_name == "USERS":
+        if table_name == "users":
             user_id = st.text_input("ID")
             email = st.text_input("Email")
             given_name = st.text_input("Given Name")
@@ -33,7 +33,7 @@ def main():
                 else:
                     add_data(table_name,[user_id, email, given_name, surname, city, phone_number, profile_description, password])
                     st.success("Added ::{} ::To Users".format(profile_description))
-        elif table_name == "CAREGIVER":
+        elif table_name == "caregiver":
             caregiver_user_id = st.text_input("User ID")
             photo = st.text_input("Photo URL")
             gender = st.selectbox("Gender", ["Male", "Female"])
