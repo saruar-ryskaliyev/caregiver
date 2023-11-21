@@ -18,13 +18,15 @@ def update_data(table_name, row, data):
 		query = query[:-1] + ' where ' + str(id_name) + ' = ' + '\''+str(data.iloc[row,0]+'\'')
 		con.execute(query)
 
-def update_data(table_name, row, data):
-    with engine.connect().execution_options(autocommit=True) as con:
-        id_name = data.columns[0]
-        query = f'UPDATE {table_name} SET '
-        query += ', '.join([f"{col} = '{data.at[row, col]}'" for col in data.columns[1:]])
-        query += f" WHERE {id_name} = '{data.at[row, id_name]}'"
-        con.execute(query)
+
+def read_data(table_name):
+    with engine.connect() as con:
+        query = db.text(f'SELECT * FROM "{table_name}"')  # Using db.text for SQL statement
+        result = con.execute(query)
+        df = pd.DataFrame(result.fetchall())
+        if len(df.columns) > 0:
+            df.columns = result.keys()
+        return df
 
 def delete_data(table_name, row, data):
 	with engine.connect().execution_options(autocommit=True) as con:
